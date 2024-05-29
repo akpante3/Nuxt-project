@@ -7,8 +7,8 @@
         class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
       >
         <tr>
-          <th v-for="header in headers" scope="col" class="px-6 py-3">
-            <div class="flex items-center">
+          <th v-for="(header, index) in headers" scope="col" class="px-6 py-3">
+            <div class="flex items-center" :key="index">
               {{ header }}
               <a href="#"
                 ><svg
@@ -31,8 +31,7 @@
           v-for="rows in body"
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
         >
-          <Link> </Link>
-          <td v-for="row in rows" class="px-6 py-4">{{ row }}</td>
+          <td v-for="(row, index) in rows" class="px-6 py-4" :key="index">{{ row }}</td>
         </tr>
       </tbody>
     </table>

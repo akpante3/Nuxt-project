@@ -1,6 +1,16 @@
 <template>
-  <div class="flex">
-    <PlayerStats v-for="index in 6" :key="index" />
+  <div class="flex" v-if="computedPlayerStats">
+      <img
+      v-if="cardImage"
+      :src="$urlFor(cardImage).size(426).url()"
+      alt="card-image"
+      height="426"
+      width="426"
+      loading="lazy"
+    />
+    <div v-for="(value, name, index) in computedPlayerStats" :key="index">
+      <PlayerStats :header="name" :stats="value" />
+    </div>
   </div>
 </template>
 
@@ -25,19 +35,23 @@ export default {
   components: {
     PlayerStats,
   },
-
   mounted() {
     this.getPlayerStat();
   },
   computed: {
     computedPlayerStats() {
-      let result = {};
-      if (this.player.length) {
-        result = {
-          statistics: player.statistics,
-        };
+      let result = [];
+      if (this.player.statistics) {
+        result = this.player.statistics;
       }
       console.log(result, "stat");
+      return result;
+    },
+    cardImage() {
+      let result = "";
+      if (this.player.cardImage) {
+        return this.player.cardImage;
+      }
       return result;
     },
   },
@@ -47,7 +61,7 @@ export default {
 
       try {
         const posts = await client.fetch(`
-          *[_type == "fifaCard" && slug.current == '${slug}] {
+          *[_type == "fifaCard" && slug.current == '${slug}'] {
             ...,
             cardImage {
               asset-> {
@@ -58,10 +72,16 @@ export default {
             },
           }
         `);
+        console.log(posts[0]);
         this.player = posts[0];
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
+    },
+    filterStat(stats) {},
+    getAverageStat(name) {
+      console.log(this.computedPlayerStats[`${name}`]);
+      return 67;
     },
   },
 };
