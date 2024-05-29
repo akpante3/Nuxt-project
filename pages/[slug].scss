@@ -1,59 +1,59 @@
 .detail-page {
-    @apply flex flex-col;
-    max-width: 1200px;
-    margin: 0 auto;
-    @media (max-width: 1074px) {
-        @apply justify-center px-4;
-    }
-  &__player-stats {
-    @apply flex justify-between rounded-xl px-4 pb-2;
-    background-color: rgba(18, 18, 18, 1);
-    @media (max-width: 1074px) {
-        @apply flex-col items-center;
-        justify-content: center;
-    }
+  @apply flex flex-col;
+  max-width: 1200px;
+  margin: 0 auto;
+  @media (max-width: 1074px) {
+      @apply justify-center px-4;
   }
-  &__player-stats-table {
-    @apply flex flex-wrap;
-    @media (max-width: 1074px) {
-        @apply justify-between mt-3;
-        width:100%;
-    }
+&__player-stats {
+  @apply flex justify-between rounded-xl px-4 pb-2;
+  background-color: rgba(18, 18, 18, 1);
+  @media (max-width: 1074px) {
+      @apply flex-col items-center;
+      justify-content: center;
   }
-  &__player-stats-table-item {
-    @apply p-4;
-    @media (max-width: 1074px) {
-        @apply p-0 text-sm;
-        min-width: 100px;
-    }
+}
+&__player-stats-table {
+  @apply flex flex-wrap;
+  @media (max-width: 1074px) {
+      @apply justify-between mt-3;
+      width:100%;
   }
-  &__player-info-item {
-    @apply flex flex-col border-r-2 justify-start px-2;
-    border-color: rgba(68, 68, 75, 1);
-    min-width: 141px;
-    @media (max-width: 1074px) {
-        @apply flex-row justify-between border-r-0 border-b ;
-        @apply py-3;
-        width: 100%;
-    }
+}
+&__player-stats-table-item {
+  @apply p-4;
+  @media (max-width: 1074px) {
+      @apply p-0 text-sm;
+      min-width: 100px;
   }
-  &__player-info {
-    @apply flex mt-5;
-    @media (max-width: 1074px) {
-        @apply flex-col;
-    }
+}
+&__player-info-item {
+  @apply flex flex-col border-r-2 justify-start px-2;
+  border-color: rgba(68, 68, 75, 1);
+  min-width: 141px;
+  @media (max-width: 1074px) {
+      @apply flex-row justify-between border-r-0 border-b ;
+      @apply py-3;
+      width: 100%;
   }
+}
+&__player-info {
+  @apply flex mt-5;
+  @media (max-width: 1074px) {
+      @apply flex-col;
+  }
+}
 
-  &__player-info-item:last-child {
-    @apply border-r-0;
+&__player-info-item:last-child {
+  @apply border-r-0;
+}
+&__player-info-name {
+  @apply capitalize font-semibold;
+  @media (min-width: 1074px) {
+      @apply pb-3;
   }
-  &__player-info-name {
-    @apply capitalize font-semibold;
-    @media (min-width: 1074px) {
-        @apply pb-3;
-    }
-  }
-  &__player-name {
-    @apply text-4xl font-bold mr-2;
-  }
+}
+&__player-name {
+  @apply text-4xl font-bold mr-2;
+}
 }
