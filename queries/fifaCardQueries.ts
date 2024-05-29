@@ -47,3 +47,28 @@ export async function getPlayerStats(slug:String) {
 	  console.error("Error fetching posts:", error);
 	}
   }
+
+
+ export async function getFifaCards() {
+	try {
+	  const data = await client.fetch(`*[_type == "fifaCard"]{
+		name,
+		rating,
+		position,
+		statistics {
+		  shooting { average },
+		  passing { average },
+		  defense { average },
+		  physical { average }
+		},
+		slug {
+		  current
+		},
+		_id
+	  }`);
+
+	  return data;
+	} catch (error) {
+	  console.error("Error fetching posts:", error);
+	}
+  }

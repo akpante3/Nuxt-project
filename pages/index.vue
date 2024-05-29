@@ -1,28 +1,23 @@
 <template>
   <div>
     <TableComponent
-      :headers="[ 'Name', 'OVR', 'POS', 'Type', 'PAC', 'SHO', 'DRI', 'DEF', 'PHY', 'WR' ]"
+      :headers="tableHeaders"
       :body="getFifaCards"
     />
-    <!-- <PlayerStats /> -->
+ <!-- TODO: Pagination -->
   </div>
 </template>
 
 <script>
-import { createClient } from "@sanity/client";
 import TableComponent from "../components/table";
+import {getFifaCards} from '../queries/fifaCardQueries'
 
-const client = createClient({
-  projectId: "21fy9g0s",
-  dataset: "production",
-  apiVersion: "2021-03-25",
-  useCdn: true,
-});
 
 export default {
   data() {
     return {
       fifaCards: [],
+      tableHeaders: [ 'Name', 'OVR', 'POS', 'Type', 'PAC', 'SHO', 'DRI', 'DEF', 'PHY', 'WR' ]
     };
   },
 
@@ -36,14 +31,14 @@ export default {
         return {
           Name: card.name,
           OVR: card.rating,
-          POS: card.position || '', // Assuming you have a position field, otherwise it defaults to an empty string
+          POS: card.position || '',
           Type: '',
           PAC: card.statistics.physical.average,
           SHO: card.statistics.shooting.average,
-          DRI: '', // Assuming you don't have this data, otherwise map it
+          DRI: '', 
           DEF: card.statistics.defense.average,
           PHY: card.statistics.physical.average,
-          WR: '', // Assuming you don't have this data, otherwise map it,
+          WR: '',
           slug: card.slug.current
         };
       });
@@ -51,29 +46,17 @@ export default {
   },
 
   mounted() {
-    this.getPosts();
+    this.getCardsList();
   },
 
   methods: {
-    async getPosts() {
+    async getCardsList() {
       try {
-        const posts = await client.fetch(`*[_type == "fifaCard"]{
-          name,
-          rating,
-          position,
-          statistics {
-            shooting { average },
-            passing { average },
-            defense { average },
-            physical { average }
-          },
-          slug {
-            current
-          },
-          _id
-        }`);
-        console.log(posts);
-        this.fifaCards = posts;
+        const data = await getFifaCards()
+        if (data) {
+          this.fifaCards = data;
+        }
+        
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
@@ -83,5 +66,5 @@ export default {
 </script>
 
 <style scoped>
-/* Add your styles here if needed */
+
 </style

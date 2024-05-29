@@ -1,6 +1,6 @@
 <template>
   <div class="detail-page">
-    <div class="detail-page__player-stats"  v-if="computedPlayerStats">
+    <div class="detail-page__player-stats" v-if="computedPlayerStats">
       <img
         v-if="cardImage"
         :src="$urlFor(cardImage).size(180).url()"
@@ -10,7 +10,7 @@
         loading="lazy"
       />
       <div class="detail-page__player-stats-table">
-        <div  v-for="(value, name, index) in computedPlayerStats" :key="index">
+        <div v-for="(value, name, index) in computedPlayerStats" :key="index">
           <PlayerStats
             class="detail-page__player-stats-table-item"
             :header="name"
@@ -25,7 +25,11 @@
       <nuxt-link class="underline" to="/">View all cards</nuxt-link>
     </div>
     <div class="detail-page__player-info">
-      <div v-for="(value, name, index) in playerInfo" class="detail-page__player-info-item"  :key="index">
+      <div
+        v-for="(value, name, index) in playerInfo"
+        class="detail-page__player-info-item"
+        :key="index"
+      >
         <span class="detail-page__player-info-name"> {{ name }} </span>
         <span class="detail-page__player-info-value"> {{ value }} </span>
       </div>
@@ -36,14 +40,7 @@
 <script>
 import { createClient } from "@sanity/client";
 import PlayerStats from "../components/playerStats";
-import { getPlayerStats } from '../queries/fifaCardQueries'
-
-const client = createClient({
-  projectId: "21fy9g0s",
-  dataset: "production",
-  apiVersion: "2021-03-25",
-  useCdn: true,
-});
+import { getPlayerStats } from "../queries/fifaCardQueries";
 
 export default {
   name: "PlayerCard",
@@ -57,7 +54,7 @@ export default {
   },
 
   mounted() {
-    this.getPlayerStat();
+    this.playerStat();
   },
   computed: {
     computedPlayerStats() {
@@ -69,11 +66,7 @@ export default {
       return result;
     },
     cardImage() {
-      let result = "";
-      if (this.player.cardImage) {
-        return this.player.cardImage;
-      }
-      return result;
+      return this.player.cardImage ? this.player.cardImage : "";
     },
     playerInfo() {
       if (this.player) {
@@ -87,18 +80,17 @@ export default {
           workRatesAttacking: this.player.workRatesAttacking,
         };
       }
-      return {}
+      return {};
     },
   },
   methods: {
-    async getPlayerStat() {
-      let slug = "kevin-de-bruyne-93-totw-25";
+    async playerStat() {
 
       try {
-        const data = await getPlayerStats(this.$route.params.slug)
+        const data = await getPlayerStats(this.$route.params.slug);
 
         if (data) {
-          this.player = data
+          this.player = data;
         }
       } catch (error) {
         console.error("Error fetching posts:", error);
@@ -116,6 +108,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import './[slug].scss';
-
+@import "./[slug].scss";
 </style>
