@@ -1,10 +1,10 @@
 <template>
-  <div class="detail-page">
-    <div class="detail-page__player-stats" v-if="computedPlayerStats">
+  <main class="detail-page">
+    <section class="detail-page__player-stats" v-if="computedPlayerStats">
       <img
         v-if="cardImage"
         :src="$urlFor(cardImage).size(180).url()"
-        alt="card-image"
+        alt="Player card image"
         height="180"
         width="220"
         loading="lazy"
@@ -19,12 +19,12 @@
           />
         </div>
       </div>
-    </div>
+    </section>
     <div class="flex mt-5 items-end">
       <h1 class="detail-page__player-name">{{ player.name }}</h1>
       <nuxt-link class="underline" to="/">View all cards</nuxt-link>
     </div>
-    <div class="detail-page__player-info">
+    <section class="detail-page__player-info">
       <div
         v-for="(value, name, index) in playerInfo"
         class="detail-page__player-info-item"
@@ -33,12 +33,11 @@
         <span class="detail-page__player-info-name"> {{ name }} </span>
         <span class="detail-page__player-info-value"> {{ value }} </span>
       </div>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
 
 <script>
-import { createClient } from "@sanity/client";
 import PlayerStats from "../components/playerStats";
 import { getPlayerStats } from "../queries/fifaCardQueries";
 

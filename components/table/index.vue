@@ -1,11 +1,9 @@
 <template>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <div class="table-container">
     <table
-      class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+      class="table-container__table"
     >
-      <thead
-        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-      >
+      <thead>
         <tr>
           <th
             v-for="(header, index) in headers"
@@ -35,7 +33,7 @@
         <tr
           v-for="(row, index) in body"
           :key="index"
-          class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+          class="table-container__row"
         >
           <nuxt-link
             :to="`/${row.slug}`"
@@ -95,5 +93,5 @@ export default {
 </script>
 
 <style scoped>
-/* Add your styles here if needed */
+@import './table.scss'
 </style>
