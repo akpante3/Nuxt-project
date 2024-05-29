@@ -22,7 +22,7 @@
     </div>
     <div class="flex mt-5 items-end">
       <h1 class="detail-page__player-name">{{ player.name }}</h1>
-      <nuxt-link to="/">View all cards</nuxt-link>
+      <nuxt-link class="underline" to="/">View all cards</nuxt-link>
     </div>
     <div class="detail-page__player-info">
       <div v-for="(value, name, index) in playerInfo" class="detail-page__player-info-item"  :key="index">
@@ -36,6 +36,7 @@
 <script>
 import { createClient } from "@sanity/client";
 import PlayerStats from "../components/playerStats";
+import { getPlayerStats } from '../queries/fifaCardQueries'
 
 const client = createClient({
   projectId: "21fy9g0s",
@@ -94,20 +95,11 @@ export default {
       let slug = "kevin-de-bruyne-93-totw-25";
 
       try {
-        const posts = await client.fetch(`
-          *[_type == "fifaCard" && slug.current == '${this.$route.params.slug}'] {
-            ...,
-            cardImage {
-              asset-> {
-                _id, metadata {
-                  lqip, dimensions
-                }
-              }
-            },
-          }
-        `);
-        console.log(posts[0]);
-        this.player = posts[0];
+        const data = await getPlayerStats(this.$route.params.slug)
+
+        if (data) {
+          this.player = data
+        }
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
