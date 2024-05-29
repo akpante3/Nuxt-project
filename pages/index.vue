@@ -43,7 +43,8 @@ export default {
           DRI: '', // Assuming you don't have this data, otherwise map it
           DEF: card.statistics.defense.average,
           PHY: card.statistics.physical.average,
-          WR: '', // Assuming you don't have this data, otherwise map it
+          WR: '', // Assuming you don't have this data, otherwise map it,
+          slug: card.slug.current
         };
       });
     },

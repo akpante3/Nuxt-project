@@ -1,5 +1,5 @@
 <template>
-  <div class="player-stats max-w-sm mx-auto text-black p-4">
+  <div class="player-stats ">
     <ul>
       <li class="border-y-2 flex justify-between items-center py-2">
         <span class="text-lg font-bold">{{ formatHeader(header) }}</span>
@@ -10,7 +10,7 @@
         class="flex justify-between items-center py-2"
       >
         <span>{{ name }}</span>
-        <span>{{ value }}</span>
+        <span class="ml-2">{{ value }}</span>
       </li>
     </ul>
   </div>
@@ -41,9 +41,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import './playerStats.scss';
 .player-stats {
-  min-width: 120px;
+  min-width: 130px;
 }
 /* Add any additional styles here if needed */
 </style>

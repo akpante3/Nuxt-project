@@ -7,8 +7,13 @@
         class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
       >
         <tr>
-          <th v-for="(header, index) in headers" scope="col" class="px-6 py-3">
-            <div class="flex items-center" :key="index">
+          <th
+            v-for="(header, index) in headers"
+            :key="index"
+            scope="col"
+            class="px-6 py-3"
+          >
+            <div :key="index" class="flex items-center">
               {{ header }}
               <a href="#"
                 ><svg
@@ -28,10 +33,22 @@
       </thead>
       <tbody>
         <tr
-          v-for="rows in body"
+          v-for="(row, index) in body"
+          :key="index"
           class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
         >
-          <td v-for="(row, index) in rows" class="px-6 py-4" :key="index">{{ row }}</td>
+          <nuxt-link
+            :to="`/${row.slug}`"
+            class="contents"
+          >
+            <td
+              v-for="(item, id) in filterRow(row)"
+              :key="id"
+              class="px-6 py-4"
+            >
+              {{ item }}
+            </td>
+          </nuxt-link>
         </tr>
       </tbody>
     </table>
@@ -60,6 +77,19 @@ export default {
   },
   data() {
     return {};
+  },
+
+  methods: {
+    handleRowClick(slug) {
+      console.log(slug, "------");
+    },
+    filterRow(row) {
+      const { slug, ...rest } = row;
+      // if (this.header.length === this.rest.length) {
+      //   console.log('======= hello')
+      // }
+      return rest;
+    },
   },
 };
 </script>
