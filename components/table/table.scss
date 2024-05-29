@@ -1,0 +1,142 @@
+table {
+	width: 100%;
+
+	th,
+	td {
+		@apply border-b border-backgroundColor-300 whitespace-nowrap;
+
+		// &:first-child {
+		@apply px-2;
+		// }
+	}
+
+	th {
+		@apply border-backgroundColor-200;
+	}
+
+	th {
+		@apply text-small tracking-wide font-bold pb-1 pt-4 text-left capitalize cursor-pointer;
+		direction: rtl; // Hacking to fix the direction of the table sort icons
+
+		& ::v-deep svg {
+			@apply inline-block ml-1;
+		}
+	}
+
+	td {
+		@apply py-2 text-small;
+	}
+
+	strong {
+		@apply mt-0;
+	}
+
+	tr {
+		transition: background-color 0.2s ease;
+
+		&:hover {
+			@apply bg-brand-divider;
+		}
+	}
+}
+
+.table-wrapper {
+	input {
+		@apply rounded-r-lg text-black-100;
+		@apply border border-solid border-brand-light-gray;
+		width: Min(100%, 600px);
+		text-indent: 10px;
+		&:focus {
+			@apply rounded-l-none;
+			outline: none;
+		}
+		&::placeholder {
+			@apply text-small;
+		}
+	}
+	@apply max-w-full;
+	// @include media('<de') {
+	// 	overflow: auto;
+	// 	max-width: calc(100vw - 30px);
+	// }
+	&__table {
+		@apply overflow-x-auto max-w-full;
+		background-image: linear-gradient(
+				to right,
+				rgba(255, 255, 255, 0)
+			),
+			linear-gradient(
+				to right,
+				rgba(255, 255, 255, 0),
+			),
+			linear-gradient(
+				to right,
+				rgba(0, 0, 0, 0)
+			),
+			linear-gradient(
+				to left,
+				rgba(0, 0, 0, 0)
+			);
+		/* Shadows */
+		/* Shadow covers */
+		background-position: left center, right center, left center,
+			right center;
+		background-repeat: no-repeat;
+		background-size: 20px 100%, 20px 100%, 10px 100%, 10px 100%;
+		background-attachment: local, local, scroll, scroll;
+		// @include media('<de') {
+		// 	@apply mt-4;
+		// }
+	}
+	&__search-container {
+		@apply flex;
+	}
+	.table-header {
+		&__dropdown-trigger {
+			@apply flex items-center justify-between px-4 py-2 cursor-pointer bg-backgroundColor-300 text-textColor-300 rounded-l-lg;
+			@apply border border-solid border-brand-light-gray;
+			@apply font-bold;
+			font-size: var(--manifold-font-small);
+			min-width: 100px;
+			&:hover,
+			&:focus {
+				@apply filter brightness-95;
+			}
+			.dropdown-icon {
+				@apply ml-2;
+				@apply transform -rotate-90;
+			}
+		}
+		&__dropdown-items {
+			@apply absolute flex flex-col mt-2 overflow-auto bg-white shadow z-30;
+			max-height: 300px;
+			width: 180px;
+		}
+		&__dropdown-item {
+			@apply px-4 py-2 text-brand-dark text-small;
+			@apply font-medium;
+			&:not(:last-of-type) {
+				@apply border-0 border-b-2 border-brand-divider;
+			}
+			&:hover,
+			&:focus {
+				@apply bg-brand-lightest-gray;
+			}
+		}
+	}
+	::v-deep .pagination {
+		@apply flex;
+		.page-item {
+			@apply mx-3;
+		}
+		.active {
+			@apply text-brand-primary;
+		}
+		a:hover {
+			@apply text-brand-primary;
+		}
+	}
+	::v-deep .smart-pagination {
+		@apply flex justify-center;
+	}
+}
